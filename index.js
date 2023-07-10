@@ -2,7 +2,7 @@ import listContacts from "./contacts.js";
 
 import { program } from "commander";
 
-const invokeAction = async ({ action, id, title, director  }) => {
+const invokeAction = async ({ action, id, name, email, phone  }) => {
   try{
     switch (action) {
       case "list":
@@ -11,12 +11,12 @@ const invokeAction = async ({ action, id, title, director  }) => {
       case "getById":
         const oneContacts = await listContacts.getContactById(id);
         return console.log(oneContacts);
+      case "add":
+        const newContacts = await listContacts.addContact({name, email, phone});
+        return console.log(newContacts);
       case "deleteById":
         const deleteMovie = await listContacts.removeContact(id);
-        return console.log(deleteMovie);
-      case "add":
-        const newContacts = await listContacts.addContact({title, director});
-        return console.log(newContacts);
+        return console.log(deleteMovie);      
       default:
         console.log("Unknowen action");
     }
@@ -30,8 +30,9 @@ const invokeAction = async ({ action, id, title, director  }) => {
 program
   .option('-a, --action <type>')
   .option('-i, --id <type>')
-  .option('-t, --title <type>')
-  .option('-d, --director <type>');
+  .option('-n, --name <type>')
+  .option('-e, --email <type>')
+  .option('-p, --phone <type>');
 
 program.parse();
 
