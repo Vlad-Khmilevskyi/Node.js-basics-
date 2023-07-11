@@ -8,7 +8,7 @@ const updateContacts = movies => fs.writeFile(fileContacts, JSON.stringify(movie
 
 export const listContacts = async() => {
   const data = await fs.readFile(fileContacts);
-  return JSON.parse(data);
+  console.table(JSON.parse(data));
 }
 
 
